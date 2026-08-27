@@ -4,7 +4,7 @@ const Highlights = () => {
   return (
     <section className="rounded-sm border-l-4 border-x-primary bg-card p-4 text-primary shadow">
       <h2 className="mb-3 inline-block bg-gradient-to-r from-primary via-[#a855f7] to-secondary bg-clip-text text-lg font-bold text-transparent">
-        New year, New goals:
+        At a glance
       </h2>
       <ul>
         {highlightList.map((point) => (

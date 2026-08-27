@@ -1,6 +1,3 @@
-
-import { HiCursorClick } from 'react-icons/hi';
-
 import { GITHUB_API_URL, GITHUB_USERNAME } from '@/lib/constants';
 
 import { featuredRepositories } from '@/app/data/data';
@@ -10,9 +7,9 @@ import RepoCard from './repo-card';
 
 async function fetchRepositoriesData() {
   const reposData = await Promise.all(
-    featuredRepositories.map(async (repoName) => {
+    featuredRepositories.map(async (featuredRepo) => {
       try {
-        const url = `${GITHUB_API_URL}/repos/${GITHUB_USERNAME}/${repoName}`;
+        const url = `${GITHUB_API_URL}/repos/${GITHUB_USERNAME}/${featuredRepo.name}`;
         const response = await fetch(url, {
           next: { revalidate: 3600 } // Revalidate every hour
         });
@@ -21,9 +18,14 @@ async function fetchRepositoriesData() {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        return response.json();
+        const repo = await response.json();
+        return {
+          ...repo,
+          description: featuredRepo.description,
+          topics: featuredRepo.topics
+        };
       } catch (error) {
-        console.error(`Error fetching ${repoName}:`, error);
+        console.error(`Error fetching ${featuredRepo.name}:`, error);
         return null;
       }
     })
@@ -64,4 +66,3 @@ export default async function FeaturedRepo() {
     </section>
   );
 }
-

@@ -1,4 +1,3 @@
-
 import { Cabin } from 'next/font/google';
 
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
@@ -8,8 +7,8 @@ import { BASE_URL } from '@/lib/constants';
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 import PageTransition from '@/components/page-transition';
-import './globals.css';
 
+import './globals.css';
 
 /* ────────────────────────────────────── */
 /*  Fonts & viewport                      */
@@ -35,34 +34,37 @@ export async function generateMetadata() {
       'page-type': 'Portfolio',
       copyright: 'David Cohen',
       audience: 'Everyone',
-      'itemProp:name': 'David Cohen | Software Engineer & Architect',
+      'itemProp:name': 'David Cohen | Research Engineer',
       'itemProp:description':
-          'David Cohen is a software engineer and architect who enjoys building elegant solutions in Python, Java, and with functional-programming techniques.',
-      'itemProp:image': `${BASE_URL}/opengraph-image.png`
+        'Research engineer and University of Bologna M.Sc. candidate working across applied ML, robotics, distributed systems, and software architecture.'
     },
     metadataBase: new URL(BASE_URL),
 
     /* ——— <title> ——— */
     title: {
-      default: 'David Cohen | Software Engineer & Architect',
+      default: 'David Cohen | Research Engineer',
       template: '%s | David Cohen'
-    },
-
-    /* ——— Verification ——— */
-    verification: {
-      google: 'process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION'
     },
 
     /* ——— <meta name="description"> ——— */
     description:
-        'Software engineer & researcher specialising in machine-learning, natural-language processing and robust back-end architecture.',
+      'Research engineer and University of Bologna M.Sc. candidate with four years of professional back-end experience and a co-first-authored Neural Networks article.',
     applicationName: 'David Cohen',
 
     /* ——— Keywords ——— */
     keywords: [
-      'david cohen','software engineer','nlp','machine learning',
-      'java','scala','kotlin','python',
-      'react','next.js','portfolio'
+      'david cohen',
+      'research engineer',
+      'applied research',
+      'machine learning',
+      'reinforcement learning',
+      'robotics',
+      'distributed systems',
+      'software architecture',
+      'natural language processing',
+      'scala',
+      'java',
+      'python'
     ],
 
     /* ——— Authorship ——— */
@@ -72,35 +74,22 @@ export async function generateMetadata() {
 
     /* ——— Open Graph ——— */
     openGraph: {
-      title: 'David Cohen',
+      title: 'David Cohen | Research Engineer',
       description:
-          'Software engineer & architect specialising in Python, Java, and functional programming. Delivering scalable, high-quality software solutions.',
+        'Research engineer and M.Sc. candidate working across applied ML, robotics, distributed systems, and software architecture.',
       authors: ['David Cohen'],
       url: BASE_URL,
       siteName: 'David Cohen',
       locale: 'en_US',
-      type: 'website',
-      images: [
-        {
-          url: `${BASE_URL}/opengraph-image.png`,
-          width: 1200,
-          height: 630,
-          alt: 'David Cohen | Software Engineer & Architect',
-          type: 'image/png'
-        }
-      ]
+      type: 'website'
     },
 
     /* ——— Twitter Cards ——— */
     twitter: {
       card: 'summary_large_image',
-      title: 'David Cohen',
+      title: 'David Cohen | Research Engineer',
       description:
-          'Software engineer & architect focusing on Python, Java, functional programming, and modern web tech.',
-      images: [`${BASE_URL}/opengraph-image.png`],
-      creator: '@davidcohen',
-      site: '@davidcohen',
-      url: BASE_URL
+        'Research engineer and M.Sc. candidate working across applied ML, robotics, distributed systems, and software architecture.'
     },
 
     /* ——— Icons & PWA ——— */
@@ -133,24 +122,24 @@ export async function generateMetadata() {
 /* ────────────────────────────────────── */
 export default function RootLayout({ children }) {
   return (
-      <html lang="en" className={`${cabin.className} h-full scroll-smooth`}>
+    <html lang="en" className={`${cabin.className} h-full scroll-smooth`}>
       {/* Google Tag Manager */}
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA_TRACKING_ID} />
       <body className="antialiased">
-      <Navbar />
+        <Navbar />
 
-      {/* animated page-switch */}
-      <PageTransition>
-        <main className="relative isolate overflow-hidden">
-          <div className="mx-auto min-h-svh w-full max-w-[50rem] px-5 py-3 pt-16 md:px-10 lg:px-0">
-            {children}
-          </div>
-        </main>
-      </PageTransition>
+        {/* animated page-switch */}
+        <PageTransition>
+          <main className="relative isolate overflow-hidden">
+            <div className="mx-auto min-h-svh w-full max-w-[50rem] px-5 py-3 pt-16 md:px-10 lg:px-0">
+              {children}
+            </div>
+          </main>
+        </PageTransition>
 
-      <Footer />
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_TRACKING_ID} />
+        <Footer />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_TRACKING_ID} />
       </body>
-      </html>
+    </html>
   );
 }

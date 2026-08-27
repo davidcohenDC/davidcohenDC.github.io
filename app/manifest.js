@@ -1,14 +1,14 @@
-
 /**
  * Copyright © 2025 David Cohen
  * SPDX-License-Identifier: MIT
  */
 import { BASE_URL } from '@/lib/constants';
+
 export default function manifest() {
   return {
     name: 'David Cohen',
     short_name: 'Dev',
-    description: 'Portfolio website for David Cohen — software engineer & architect',
+    description: 'Portfolio website for David Cohen - research engineer and M.Sc. candidate',
     theme_color: '#1A85FF',
     background_color: '#171923',
     manifest_version: 2,
