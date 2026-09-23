@@ -1,0 +1,47 @@
+/* The drawing in the hero: one of two traced outlines, one per theme.
+ *
+ * Each file carries its theme's colours, written in by scripts/portrait.py
+ * from the roles in theme.css — so a change of palette there is a re-run of
+ * that script, and the drawings cannot drift out of step with it.
+ *
+ * `background-image` means only the drawing in force is fetched, and an
+ * outline has no resolution, so there is nothing to choose by pixel density
+ * and nothing to go soft at a size we did not anticipate.
+ *
+ * It does not move. The drawing is a print, and a print that bobs when the
+ * pointer passes is a sticker. The one thing that happens to it is the change
+ * of theme, and that is a fade.
+ */
+@layer components {
+  .portrait-figure {
+    width: 100%;
+    aspect-ratio: 1112 / 1355;
+    background-image: url('/hero/david-wave.svg');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: contain;
+  }
+
+  [data-theme='dark'] .portrait-figure {
+    background-image: url('/hero/david-working.svg');
+  }
+
+  /* The new drawing arrives rather than the old one leaving in a hurry.
+     `theme-changing` is set on the root by the theme hook for the length of
+     it. Not while the theme spreads as a circle: the circle is the change,
+     and a fade under it made the phone repaint the page every frame. */
+  @media (prefers-reduced-motion: no-preference) {
+    html.theme-changing:not(.theme-reveal) .portrait-figure {
+      animation: portrait-fade 0.45s ease-out;
+    }
+  }
+
+  @keyframes portrait-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

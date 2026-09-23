@@ -1,0 +1,45 @@
+# Keeps src/data/snapshot.json level with GitHub.
+#
+# The page never calls an API: this does, on a schedule, and commits the
+# snapshot. GitHub's scheduler is best-effort and its finest granularity is five
+# minutes, so half an hour is an honest interval rather than an optimistic one;
+# the manual trigger is there for when a description has just been edited.
+#
+# GITHUB_TOKEN is the one Actions provides. It is enough for the GraphQL call
+# that reads the pinned repositories; without it the sync still runs and keeps
+# the order in the script.
+name: Sync repositories
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run sync
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Typecheck and the behaviour tests, so a change on GitHub that the site
+      # cannot render is caught here instead of on the page.
+      - run: npm run typecheck
+      - run: npm test
+      - name: Commit the snapshot if it moved
+        run: |
+          if git diff --quiet src/data/snapshot.json; then
+            echo "No change."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/snapshot.json
+          git commit -m "chore(data): refresh the snapshot from its sources"
+          git push

@@ -1,0 +1,130 @@
+/* Going from one page of this site to another.
+ *
+ * The three pages share a stylesheet, so the browser can carry the old one
+ * over the new one instead of blanking between them: `navigation: auto` turns
+ * every same-origin navigation into a cross-fade, and a pair of elements that
+ * share a `view-transition-name` morph from one into the other.
+ *
+ * The pair here is the name. "David Cohen" is the same words in the same face
+ * on the portfolio and at the head of the CV, at two sizes in two places, so
+ * it travels between them and the rest of the page fades under it. It works
+ * in both directions for free: the browser is matching names, not journeys.
+ *
+ * Morphing the button into the whole head of the CV was tried first and looks
+ * like what it is — a small box stretched into a large one, dragging its
+ * contents out of shape. Two things only morph well when they are the same
+ * thing.
+ *
+ * It costs nothing: no script, no library, and a browser that has never heard
+ * of it navigates the way it always did.
+ */
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The page underneath.
+   *
+   * Only the arriving page moves. Transforming the leaving one as well means
+   * two full-page snapshots on their own layers at once, and on a long page
+   * that is what turns a transition from a movement into a stutter — it was
+   * tried, and it is the difference between smooth and nearly smooth.
+   *
+   * So the old page only fades, quickly, and the new one rises the last ten
+   * pixels into place. One thing moving is what reads as one movement.
+   */
+  ::view-transition-old(root) {
+    animation: page-leaves 0.2s ease-in both;
+  }
+
+  ::view-transition-new(root) {
+    animation: page-arrives 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes page-leaves {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes page-arrives {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+
+  /* The name itself, on both pages. */
+  .hero h1,
+  .cv-head h1 {
+    view-transition-name: name;
+  }
+
+  /* Longer than the fade under it, and eased so it settles rather than
+     stops: the movement is the point, and 0.22s is not enough to read as
+     travel. `ease-out` alone arrives too abruptly at this distance. */
+  /* The same curve and very nearly the same length as the page it travels
+     over, so the two settle together instead of one waiting for the other. */
+  ::view-transition-group(name) {
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* The two copies of the name cross-fade quickly inside the group that is
+     moving them, so the text never looks doubled in flight. */
+  ::view-transition-old(name),
+  ::view-transition-new(name) {
+    animation-duration: 0.16s;
+    mix-blend-mode: normal;
+  }
+}
+
+/* Motion turned down: the pages still carry over, they just do it at once. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
+  }
+}
+
+/* A change of theme, on the same page.
+ *
+ * The new theme opens as a circle from the centre of the control that was
+ * pressed until it covers the farthest corner; the old page stays still
+ * underneath. theme/theme.ts animates the circle and puts `theme-reveal` on
+ * the root for as long as it lasts, which is what keeps these rules apart
+ * from the page-to-page ones above.
+ *
+ * The page under the circle has to hold still, or the browser repaints the
+ * whole of it every frame instead of only moving the circle — which is what
+ * made the change stutter on a phone. So nothing else moves: the elements
+ * that travel between pages are unnamed for its length (they would
+ * cross-fade on their own, outside the circle), the page's colour
+ * transitions are held, the portrait does not fade (portrait.css), and the
+ * theme control, whose sky keeps turning, is lifted onto a layer of its own
+ * so that its turn repaints only itself. */
+html.theme-reveal :is(.hero h1, .cv-head h1) {
+  view-transition-name: none !important;
+}
+
+html.theme-reveal *:not(.dial-wheel) {
+  transition: none !important;
+}
+
+html.theme-reveal .theme-toggle {
+  view-transition-name: theme-dial;
+}
+
+html.theme-reveal::view-transition-group(root),
+html.theme-reveal::view-transition-old(root),
+html.theme-reveal::view-transition-new(root),
+html.theme-reveal::view-transition-group(theme-dial),
+html.theme-reveal::view-transition-new(theme-dial) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html.theme-reveal::view-transition-old(theme-dial) {
+  display: none;
+}

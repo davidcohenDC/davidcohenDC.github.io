@@ -1,0 +1,84 @@
+# Publishes the site, and only when it deserves to be published.
+#
+# The order matters: read the sources, build the indexable output, then run the
+# whole check against that build. A deploy step that runs before the checks is
+# a deploy step that publishes a broken page and tells you afterwards.
+name: Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time, and a push that arrives mid-run wins.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      # The live figures, as fresh as the sources will give them. A source that
+      # does not answer leaves the value already in the snapshot.
+      - run: npm run sync
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: npm run build:production
+
+      # The same gate as every pull request, against the output being shipped.
+      - run: npm run check
+
+      # A performance failure that leaves no evidence is a failure you have to
+      # reproduce by guessing. The report says which element was measured and
+      # what the request chain was, which is the whole argument.
+      - name: Keep the Lighthouse report when the gate fails
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse
+          path: |
+            reports/lighthouse.html
+            reports/performance-summary.json
+          retention-days: 7
+
+      - name: Requirements in the job summary
+        if: always()
+        run: |
+          {
+            echo '## Requirements'
+            echo
+            echo '| | ID | Promise | Measured | Threshold |'
+            echo '| --- | --- | --- | --- | --- |'
+            node -e '
+              const { results } = require("./reports/requirements.json");
+              for (const r of results)
+                console.log(`| ${r.passed ? "✅" : "❌"} | ${r.id} | ${r.what} | ${r.measured ?? "—"} | ${r.rule === "atMost" ? "≤" : "≥"} ${r.threshold} |`);
+            '
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # `check` rebuilds with the preview defaults, so the indexable output is
+      # made once more, last, and that is what is uploaded.
+      - run: npm run build:production
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+      - id: deploy
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fdf6e3" />
+    <meta
+      name="description"
+      content="David Cohen — Co-first author in Neural Networks. Reinforcement learning, distributed systems and software architecture. M.Sc. student, University of Bologna."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Linked here rather than imported by the script.
+         
+         A cross-document view transition needs the page being arrived at to
+         carry `@view-transition` in a render-blocking stylesheet. Imported
+         from main.tsx it arrives with the JavaScript, which in development
+         is after the navigation has already been decided — so going back to
+         this page from the CV skipped the transition entirely, and only in
+         development, which is the worst place for a difference to hide. -->
+    <link rel="stylesheet" href="/src/styles/index.css" />
+    <!-- The display cut only: it sets the name, which is what LCP measures.
+         The reading face is deliberately not preloaded (styles/fonts.css). -->
+    <link
+      rel="preload"
+      href="/fonts/archivo-display.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <title>David Cohen — Software & Research</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

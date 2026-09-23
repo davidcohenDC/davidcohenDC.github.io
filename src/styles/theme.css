@@ -1,0 +1,394 @@
+/* The design system. Tailwind's utilities read these tokens (`bg-surface` is
+   `var(--color-surface)`), so utilities and hand-written rules share them. */
+@theme {
+  /* The scale is 4px, the one the page was already built on: 1 = 4px,
+     2 = 8px, 3 = 12px, 4 = 16px, 6 = 24px, 8 = 32px, 12 = 48px, 16 = 64px. */
+  --spacing: 4px;
+
+  /* Five sizes, and no sixth.
+   *
+   * The page had nine — 11, 12, 13, 14, 16, 20.8, 21.6, 27.2 and 41.6 px —
+   * five of them between 11 and 16, each decided on its own. Sizes that close
+   * together do not make a hierarchy, they make a blur: the eye cannot tell
+   * 12 from 13, so neither carries a rank. These five are far enough apart to
+   * be told apart, and every one of them has a job:
+   *
+   *   xs  13  what was fetched, captions, tags
+   *   sm  15  the page's text
+   *   base 17 a lead: the one sentence that introduces a block
+   *   lg  22  a title, of a section or of an entry
+   *   xl  34  the name, once
+   *
+   * Anything Tailwind ships above these is unset, so `text-2xl` cannot be
+   * reached for by accident and a sixth size has to be a decision.
+   *
+   * The four reading sizes went up a point each after the page was read on a
+   * phone: 14px of Archivo at 88% width is narrower than 14px of anything
+   * else, which is the point of the face and also why it asked to be set a
+   * size larger. The name stays where it was — it was never the thing that
+   * was hard to read. */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.5;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.55;
+  --text-base: 1.0625rem;
+  --text-base--line-height: 1.5;
+  --text-lg: 1.375rem;
+  --text-lg--line-height: 1.25;
+  --text-xl: 2.125rem;
+  --text-xl--line-height: 1.1;
+  /* And a sixth, which is a decision.
+   *
+   * Five sizes capped the page at 34px, so the name was one step above a
+   * project's title and nothing on the first screen outranked anything else.
+   * The display size is not a reading size: it is set only in the display
+   * face, only for the name and the figures, and a word at this size is a
+   * landmark rather than a line. */
+  --text-display: clamp(3.5rem, 8.5vw + 0.5rem, 7rem);
+  --text-display--line-height: 0.88;
+  --text-2xl: initial;
+  --text-3xl: initial;
+  --text-4xl: initial;
+  --text-5xl: initial;
+  --text-6xl: initial;
+  --text-7xl: initial;
+  --text-8xl: initial;
+  --text-9xl: initial;
+
+  /* Two faces, one job each.
+   *
+   * Archivo at 88% width sets everything meant to be read: narrow enough to
+   * hold a long line, sturdy enough to stay black at 14px. It is served from
+   * this origin — see styles/fonts.css — and its fallback is measured to the
+   * same width, so the swap moves nothing.
+   *
+   * The monospace stack keeps what is machine-read: dates, versions, tags,
+   * "checks passing". Cascadia Mono ships with Windows 11 and is narrower and
+   * easier on the eye than Consolas; SF Mono and Menlo are the Mac's. Nothing
+   * in that stack is downloaded. */
+  --font-sans: 'Archivo', 'Archivo fallback', system-ui, sans-serif;
+  /* The third register: a few words, set large. See styles/fonts.css. */
+  --font-display:
+    'Archivo Display', 'Arial Narrow', 'Roboto Condensed', var(--font-sans);
+  --font-mono:
+    'Cascadia Mono', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
+  --default-font-family: var(--font-sans);
+
+  /* Colour roles: --color-accent marks interactive text, key numbers and brand
+     icons only; dates, labels and captions use --color-muted.
+     
+     The light theme is Solarized Light (Ethan Schoonover), by its own names:
+     base3 is the page, base2 the modules, base02 the text. Two values are not
+     his, and both exist because a website has objects an editor does not:
+     
+     - `--color-surface`, base3 lifted a little, because cards sit on the page
+       and base3 is already the page.
+     - `--color-accent` and `--color-signal` are his blue and his green taken
+       darker. Solarized's blue on base3 is 3.4:1 and its green 3.0:1 — under
+       the 4.5:1 that body text needs, and links here are body text. Darkened
+       they read as the same hues and pass on every ground they land on,
+       including the one that caught the first attempt: a tag's own fill, which
+       is 7% ink over the wash and darker than either. 5.9:1 and 4.7:1 there.
+     
+     Every pair below was measured against bg, wash and surface before it
+     shipped; axe checks the result at both ends of the page on every run. */
+  --color-bg: #fdf6e3;
+  --color-surface: #fffdf5;
+  --color-wash: #eee8d5;
+  /* The band under every other section: the quietest step that still reads as
+     a change of ground. base3 a third of the way to base2 — 1.045:1 against
+     the page, where the wash is 1.14 — so the sections separate without the
+     page turning into stripes. Every role stays legible on it: ink 11.5:1,
+     muted 5.4, the accent 5.6, the signal 5.8. */
+  --color-band: #f8f1de;
+  --color-ink: #073642;
+  --color-muted: #4f6570;
+  --color-line: #e2dac4;
+  --color-accent: #186497;
+  --color-signal: #566400;
+  /* The colour of a result: the figure a project is remembered by, and
+     nothing else. Solarized's yellow taken down to the gold the theme control
+     already wears — the gold in the drawing's shirt, and the light the
+     simulator's robot learns to seek. 4.1:1 on the page, so it is only ever set at the
+     display sizes, where 3:1 is the bar. */
+  --color-result: #a07600;
+  --color-header: rgb(253 246 227 / 0.92);
+  /* The theme control is the lit thing in the header, and its colour is
+     Solarized's own yellow taken two steps down: gold rather than red, dark
+     enough to sit on cream without glaring. 4.1:1 on the surface and 3.4:1 on
+     the wash it sits on when hovered; an icon needs 3. */
+  --toggle-icon: #a07600;
+
+  --shadow-card: 0 16px 42px -28px rgb(7 54 66 / 0.26);
+
+  /* Comfortable line length for running text: `max-w-measure`. */
+  --container-measure: 62ch;
+
+  /* The page's three breakpoints, the ones it was already written to. They are
+     one pixel past the old `width > N` queries, which is the same query.
+     Anything Tailwind ships beyond these is unset, so `xl:` cannot be reached
+     for by accident. */
+  --breakpoint-sm: 601px;
+  --breakpoint-md: 761px;
+  --breakpoint-lg: 1001px;
+  --breakpoint-xl: initial;
+  --breakpoint-2xl: initial;
+}
+
+/* Fluid rhythm: sections and grids breathe with the viewport instead of
+   stepping at a breakpoint, so these are one value each rather than a scale.
+   In markup they are reached for as `gap-(--gap-lg)`. */
+:root {
+  --gap-sm: clamp(16px, 2vw, 24px);
+  --gap-md: clamp(24px, 2.5vw, 32px);
+  --gap-lg: clamp(32px, 4.5vw, 64px);
+  --section-gap: clamp(26px, 2vw + 12px, 40px);
+  --heading-gap: clamp(12px, 0.8vw + 6px, 18px);
+  --card-pad: clamp(16px, 2vw, 22px);
+  --header-height: 56px;
+}
+
+/* The theme is a data attribute on <html>, set before paint by the inline
+   script, so `dark:` has to be told where to look. */
+@custom-variant dark (&:where(html[data-theme="dark"] *));
+
+/* The dark theme is One Dark (Atom): #282c34 is the editor, #3e4451 the
+   selection, #abb2bf the foreground, and its blue and green are bright enough
+   on that ground to be used as they are — 4.8:1 and 5.7:1 on the lightest of
+   the three grounds. Only the two greys are adjusted, upwards: One Dark's
+   comment grey is 2.3:1, which is a comment in an editor and unreadable as a
+   caption on a page. */
+html[data-theme='dark'] {
+  --color-bg: #282c34;
+  --color-surface: #343a45;
+  --color-wash: #2f3540;
+  /* Down rather than up: the wash lifts a card off the page, the band sinks a
+     section into it. One Dark's editor ground taken 16% towards black, which
+     is 1.096:1 — a little more than the light theme needs, because two dark
+     grounds this close tell apart less easily than two light ones. Ink 9.8:1
+     on it, muted 7.0, accent 6.5, signal 7.6. */
+  --color-band: #22252c;
+  --color-ink: #c8cfda;
+  --color-muted: #a6b0be;
+  --color-line: #3e4451;
+  --color-accent: #61afef;
+  --color-signal: #98c379;
+  /* One Dark's own yellow, 8.6:1 on the page. */
+  --color-result: #e5c07b;
+  --color-header: rgb(40 44 52 / 0.92);
+  /* And One Dark's blue opened up the same way, at 5.7:1. */
+  --toggle-icon: #74bdff;
+  --shadow-card: 0 16px 42px -28px rgb(0 0 0 / 0.6);
+  color-scheme: dark;
+}
+
+/* The primitives, as utilities. A utility here is a rule the page repeats in
+   several places and means exactly one thing; anything used once belongs in
+   the markup as ordinary utilities, and anything with several states belongs
+   in a component's own file. */
+
+/* The page's one column: full width less the gutter, centred, and capped.
+ *
+ * The cap is the point of it. Left to grow, a line of this type reaches 1,600
+ * pixels on a wide screen, a label and a date end up a metre apart, and every
+ * block finds its own left edge. At 960 the column is a column: the eye
+ * travels a fixed distance, and everything on the page shares one measure.
+ *
+ * The widths live here rather than in a stylesheet because a utility beats a
+ * class: while they sat in `base.css` the two media queries did nothing and
+ * the page was full-width at every size. */
+@utility shell {
+  width: calc(100% - 40px);
+  margin-inline: auto;
+
+  @media (width > 760px) {
+    width: calc(100% - 64px);
+  }
+
+  @media (width > 1000px) {
+    width: min(960px, calc(100% - 112px));
+  }
+}
+
+/* The rhythm between one section and the next. */
+@utility section {
+  padding-block: var(--section-gap);
+}
+
+/* A surface that changes colour when the theme does, and says so. */
+@utility theme-shift {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Small type set in the one typeface: labels, dates, figures. */
+@utility mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+/* The display register: the name, a section's number, a figure. The face is
+   static at 800, so the weight is stated to stop the browser synthesising a
+   bolder one over it. */
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-synthesis: none;
+  letter-spacing: 0;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* A label above a block. */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* What can be pressed, and only that: the accent colour and a line under it.
+   Weight and size say what matters; colour and the line say what acts. */
+@utility link {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--color-accent) 45%,
+    transparent
+  );
+
+  &:hover {
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 2px;
+  }
+}
+
+/* A button: the one primary action on a page.
+ *
+ * It was a block of ink with an icon at each end, which read as a banner
+ * rather than as something to press, and answered the pointer with nothing.
+ * Now it is the words and the arrow, and it behaves like a key: it stands on
+ * a hard shadow in the colour of a result, rises a pixel under the pointer,
+ * and goes down onto the shadow when pressed. Transform and shadow only, so
+ * nothing around it moves. */
+@utility button {
+  display: inline-flex;
+  max-width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: --spacing(3);
+  border-radius: 6px;
+  padding: --spacing(2) --spacing(5);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
+
+  & svg:last-child {
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translate(-1px, -1px);
+    }
+
+    &:hover svg:last-child {
+      transform: translateX(3px);
+    }
+  }
+
+  &:active {
+    opacity: 1;
+    transform: translate(2px, 2px);
+  }
+}
+
+@utility primary {
+  background: var(--color-ink);
+  color: var(--color-bg);
+  box-shadow: 3px 3px 0 0 var(--color-result);
+
+  @media (hover: hover) {
+    &:hover {
+      box-shadow: 4px 4px 0 0 var(--color-result);
+    }
+  }
+
+  &:active {
+    box-shadow: 1px 1px 0 0 var(--color-result);
+  }
+}
+
+@utility secondary {
+  border: 1px solid var(--color-ink);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  box-shadow: 3px 3px 0 0 var(--color-line);
+
+  @media (hover: hover) {
+    &:hover {
+      box-shadow: 4px 4px 0 0 var(--color-line);
+    }
+  }
+
+  &:active {
+    box-shadow: 1px 1px 0 0 var(--color-line);
+  }
+}
+
+/* A round control — the theme dial, the way back to the top — drawn one way
+   everywhere: a hairline border on the surface, the accent in the border
+   under the pointer, down a pixel when pressed; each control chooses its own
+   ground, and may name its own accent in `--control-accent`. Solid borders only: a ring
+   cut out of a gradient with a mask has a grainy edge next to one that is
+   antialiased like the rest of the page. */
+@utility round-control {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.3s ease,
+    transform 0.15s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: color-mix(
+        in srgb,
+        var(--control-accent, var(--color-accent)) 55%,
+        var(--color-line)
+      );
+    }
+  }
+
+  &:active {
+    opacity: 1;
+    transform: translateY(1px);
+  }
+}
+
+/* A link with a glyph that says where it goes, at a size a thumb can hit. */
+@utility text-link {
+  @apply link theme-shift;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: --spacing(2);
+  border-radius: 3px;
+  padding: --spacing(2) --spacing(1);
+  font-size: var(--text-sm);
+}

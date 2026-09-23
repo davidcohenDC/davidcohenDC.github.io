@@ -1,0 +1,119 @@
+/* What is left of the projects' own stylesheet: the three things the markup
+   cannot say. Everything else about the section is utilities in Project.tsx. */
+@layer components {
+  /* Every picture wears one frame: the same corners and a hairline round
+   * the picture itself — a screenshot on a white ground, a terminal on a
+   * black one, a paper's first page all end at the same line, so a grid of
+   * different pictures reads as one set.
+   *
+   * It used to rest on a blurred pool of shadow and lift under the pointer,
+   * which was softer than every other edge on the page; the frame is drawn
+   * the way the controls are, one solid line. The line is on the picture,
+   * not on the figure, so a caption under it stays outside the frame.
+   */
+  .project-frame > :first-child {
+    border-radius: inherit;
+    box-shadow: 0 0 0 1px var(--color-line);
+    transition: box-shadow 0.25s ease;
+  }
+
+  /* An entry answers the pointer through its frame, in the accent, the way
+     a round control does — nothing moves, so nothing can shift the layout,
+     and a clip, which is a control, stays where the pointer found it. */
+  @media (hover: hover) {
+    .project-row:hover > .project-frame > :first-child {
+      box-shadow: 0 0 0 1px
+        color-mix(in srgb, var(--color-accent) 55%, var(--color-line));
+    }
+  }
+}
+
+/* With JavaScript the clip is the control: use-clips takes the native bar off
+   and gives the element the click, so the pointer has to say it is live. The
+   bar comes back when there is no script to do it, and brings its own. */
+@layer components {
+  .project-frame video[tabindex] {
+    cursor: pointer;
+  }
+
+  /* The play mark, over a clip that is waiting for a hand: every clip when
+     motion is turned down, and one that was stopped by hand otherwise. A
+     disc with a triangle cut from it — no bar, no scrubber, nothing the
+     browser draws. The video is the control; this only says so.
+
+     The mark is always there on a figure that holds a clip, and only its
+     opacity answers the clip's state, so it fades in with the pause instead
+     of appearing on top of the picture. */
+  .project-frame:has(> video)::before {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    z-index: 1;
+    width: 56px;
+    height: 56px;
+    translate: -50% -50%;
+    border-radius: 50%;
+    /* Dark in both themes: it sits on the picture, not on the page. */
+    background: rgb(7 20 26 / 0.72);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 56'%3E%3Cpath fill-rule='evenodd' d='M28 0a28 28 0 1 1 0 56a28 28 0 1 1 0-56ZM23 18v20l16-10Z'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+
+  .project-frame:has(> video[data-state='paused'])::before {
+    opacity: 1;
+  }
+
+  /* A module answers the pointer with its title, in the colour of what can
+     be pressed: the whole tile reads as one thing being pointed at. */
+  .project-row h3 {
+    transition: color 0.25s ease;
+  }
+
+  @media (hover: hover) {
+    .project-row:hover h3 {
+      color: var(--color-accent);
+    }
+  }
+
+  /* The line that says a filter is on, and the way to turn it off. Empty,
+     it takes no room. */
+  .filter-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: --spacing(2) --spacing(3);
+    margin: 0 0 --spacing(8);
+    font-size: var(--text-sm);
+  }
+
+  .filter-line:empty {
+    display: none;
+  }
+
+  /* The tag in force, as the pressed pill it was pressed as. */
+  .filter-tag {
+    border-radius: 999px;
+    padding: --spacing(0.5) --spacing(2.5);
+    background: var(--color-ink);
+    color: var(--color-bg);
+    font-weight: 600;
+  }
+
+  .filter-clear {
+    display: inline-flex;
+    align-items: center;
+    gap: --spacing(1);
+    min-height: 36px;
+    border-radius: 6px;
+    padding-inline: --spacing(2);
+    color: var(--color-accent);
+    cursor: pointer;
+  }
+
+  .filter-clear:hover {
+    background: color-mix(in srgb, var(--color-ink) 6%, transparent);
+  }
+}

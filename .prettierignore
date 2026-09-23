@@ -1,0 +1,12 @@
+node_modules
+build
+assets-source
+reports
+playwright-report
+test-results
+package-lock.json
+
+# Written by scripts/portrait.py: two traced drawings on one line each.
+# Formatting a file nobody types in is work for its own sake, and chasing the
+# formatter's preferred shape from inside the generator is worse.
+src/media/drawings.ts

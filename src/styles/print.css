@@ -1,0 +1,177 @@
+@page {
+  size: A4;
+  margin: 17mm;
+}
+@media print {
+  body {
+    font-size: 10pt;
+    line-height: 1.5;
+  }
+  p {
+    line-height: 1.5;
+    margin-block: 8px;
+  }
+  h1 {
+    font-size: 26pt;
+  }
+  h2 {
+    font-size: 18pt;
+  }
+  h3,
+  .project-row h3 {
+    font-size: 13pt;
+  }
+  .project-cover,
+  .portrait {
+    display: none;
+  }
+  .hero {
+    display: block;
+  }
+  .hero-ground::before {
+    display: none;
+  }
+  .project-row .project-description {
+    min-height: 0;
+    margin-block: 10px;
+  }
+  .disclosure summary {
+    padding-block: 8px;
+    min-height: 0;
+  }
+  .tags {
+    margin-block: 10px;
+  }
+
+  /* One ink-on-white palette for paper. Both themes are screen themes — a
+     cream page and a One Dark page are equally wrong on a sheet of paper — so
+     printing overrides the roles themselves, in the theme's own names. These
+     are the last rules in the sheet and they sit outside every layer, which is
+     what lets them win over the utilities that set a colour in the markup. */
+  html,
+  html[data-theme='dark'] {
+    --color-bg: white;
+    --color-surface: white;
+    --color-wash: white;
+    --color-band: white;
+    --color-ink: #16181d;
+    --color-muted: #3f4650;
+    --color-line: #aaa;
+    --color-accent: #14508f;
+    --color-signal: #2c5a2c;
+    --shadow-card: none;
+    background: white;
+    color: #16181d;
+    color-scheme: light;
+  }
+  /* Everything that exists to be pressed. Paper has pages of its own and
+     cannot follow a link, so a menu, a floating control and a skip link are
+     all noise on it — and `.document-header` is the CV's menu, which used to
+     be a row of anchors called `.cv-nav`. */
+  body > header,
+  .document-header,
+  .doc-actions,
+  .back-to-top,
+  .hero-actions,
+  .cv-tools,
+  .skip-link {
+    display: none;
+  }
+
+  /* A CV is read as a whole, so nothing that belongs together is split
+     across the fold. */
+  .cv-entry {
+    break-inside: avoid;
+  }
+
+  /* The CV on paper.
+   *
+   * On screen the dates sit in a column of their own, which is how a CV is
+   * scanned. On paper that column is a quarter of the measure spent on four
+   * words, and the text beside it breaks every few syllables: the first
+   * printing of this page ran to thirteen pages. So the date goes back above
+   * the title, the page takes the full width of the sheet, and the rhythm
+   * tightens — the screen's air is there to make a long page walkable, and a
+   * sheet of paper does not need to be walked. */
+  .cv-page {
+    width: 100%;
+    margin: 0;
+  }
+
+  .cv-entry {
+    display: block;
+    padding-block: 9pt;
+  }
+
+  .cv-entry > :first-child {
+    margin-bottom: 2pt;
+    padding-top: 0;
+    text-align: left;
+  }
+
+  .cv-entry dd {
+    margin-top: 2pt;
+  }
+
+  .section-heading {
+    margin-bottom: 6pt;
+  }
+
+  #cv-main > header {
+    padding-top: 0;
+    padding-bottom: 10pt;
+  }
+
+  #cv-main section {
+    padding-top: 12pt;
+  }
+  .shell {
+    width: 100%;
+  }
+  .section {
+    padding-block: 24px;
+  }
+  .hero {
+    padding-block: 0;
+  }
+  .project-row {
+    box-shadow: none;
+    background: white;
+  }
+  #achievements article {
+    display: block;
+  }
+  .project-row {
+    display: block;
+    margin-block: 24px;
+    break-inside: avoid;
+  }
+  .more-all {
+    display: none;
+  }
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .disclosure::details-content {
+    content-visibility: visible;
+    height: auto;
+    overflow: visible;
+  }
+  a {
+    text-decoration: underline;
+  }
+  footer {
+    padding-bottom: 0;
+  }
+}

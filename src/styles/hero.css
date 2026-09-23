@@ -1,0 +1,74 @@
+/* The hero keeps a rule for two things the markup cannot say. */
+@layer components {
+  /* The ground: the arena the simulator's robots are drawn on, ruled in the
+     page's line colour and fading out before the copy ends. It is the only
+     texture on the page, and it is there because the first project is a
+     robot on a grid looking for the light.
+
+     Two gradients, no request, and nothing in the flow: it is a background,
+     so it cannot shift anything. It does not print. */
+  .hero-ground {
+    isolation: isolate;
+  }
+
+  /* On a layer of its own, so the fade reaches the lines and not the name. */
+  .hero-ground::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(var(--color-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: center -1px;
+    mask-image: linear-gradient(#000, rgb(0 0 0 / 0.1));
+    pointer-events: none;
+  }
+
+  /* The underline lives on the paper's title, not on the link, so hovering
+     the line has to reach it. */
+  .hero-publication-title {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--color-accent) 45%,
+      transparent
+    );
+  }
+
+  .hero-publication:hover .hero-publication-title {
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 2px;
+  }
+
+  /* The light. Where the pointer is, the arena's lines are lit in the
+     gold the drawing wears in its shirt — the grid a robot crosses towards the
+     light, lit by the reader instead. A second copy of the grid, shown only
+     through a soft circle at the pointer (use-pointer-light.ts writes where
+     it is); it fades in when the pointer arrives and out when it leaves. */
+  .hero-ground::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(var(--toggle-icon) 1px, transparent 1px),
+      linear-gradient(90deg, var(--toggle-icon) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: center -1px;
+    mask-image: radial-gradient(
+      180px circle at var(--light-x, 50%) var(--light-y, 50%),
+      rgb(0 0 0 / 0.55),
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .hero-ground[data-lit]::after {
+    opacity: 1;
+  }
+}

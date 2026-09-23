@@ -1,0 +1,63 @@
+name: Portfolio quality
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  # The message convention, checked where a wrong one still costs nothing: on
+  # the pull request, before anyone has built anything on top of it — and on
+  # what lands on main, because the scheduled sync commits too and its message
+  # is written in a workflow file, where no hook can reach it. A force push
+  # rewrites what came before, so there is no range to read and it is skipped.
+  commits:
+    if: >-
+      github.event_name == 'pull_request' ||
+      (!github.event.forced &&
+       github.event.before != '0000000000000000000000000000000000000000')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - if: github.event_name == 'pull_request'
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to HEAD --verbose
+      - if: github.event_name == 'push'
+        run: npx commitlint --from ${{ github.event.before }} --to ${{ github.sha }} --verbose
+
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run check
+      - name: Requirements in the job summary
+        if: always()
+        run: |
+          {
+            echo '## Requirements'
+            echo
+            echo '| | ID | Promise | Measured | Threshold |'
+            echo '| --- | --- | --- | --- | --- |'
+            node -e '
+              const { results } = require("./reports/requirements.json");
+              for (const r of results)
+                console.log(`| ${r.passed ? "✅" : "❌"} | ${r.id} | ${r.what} | ${r.measured ?? "—"} | ${r.rule === "atMost" ? "≤" : "≥"} ${r.threshold} |`);
+            '
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quality-reports
+          path: |
+            reports/
+            playwright-report/
+            test-results/

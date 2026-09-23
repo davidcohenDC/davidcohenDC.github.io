@@ -1,0 +1,451 @@
+{
+  "fetched": "2026-09-24",
+  "repositories": [
+    {
+      "displayName": "Scala Robotics Simulator",
+      "fullName": "Scala-Robotics-Simulator/scala-robotics-simulator",
+      "name": "scala-robotics-simulator",
+      "url": "https://github.com/Scala-Robotics-Simulator/scala-robotics-simulator",
+      "description": "A robotics simulator written in scala.",
+      "topics": [
+        "deep-learning",
+        "machine-learning",
+        "python",
+        "reinforcement-learning",
+        "rl",
+        "robotics",
+        "scala",
+        "simulation"
+      ],
+      "homepage": "https://scala-robotics-simulator.github.io/scala-robotics-simulator/",
+      "stars": 4,
+      "forks": 2,
+      "createdYear": "2025",
+      "license": "MIT",
+      "pushedAt": "2026-09-20",
+      "pinned": true,
+      "languages": [
+        "Jupyter Notebook",
+        "Scala",
+        "Python",
+        "Shell"
+      ],
+      "release": {
+        "tag": "v2.0.1",
+        "published": "2026-01-16"
+      },
+      "commit": {
+        "date": "2026-09-20",
+        "subject": "chore(deps): update react monorepo to v19.3.0 (#310)"
+      },
+      "checks": {
+        "conclusion": "success",
+        "workflow": "CI/CD",
+        "at": "2026-09-20"
+      },
+      "published": null
+    },
+    {
+      "displayName": "lecturize",
+      "fullName": "davidcohenDC/lecturize",
+      "name": "lecturize",
+      "url": "https://github.com/davidcohenDC/lecturize",
+      "description": "Turn lecture recordings into notes offline: resumable faster-whisper CLI, markdown chapters/SRT/docx, local translation to 50 languages, no PyTorch",
+      "topics": [
+        "argos-translate",
+        "asr",
+        "audio-transcription",
+        "cli",
+        "ctranslate2",
+        "faster-whisper",
+        "lecture-notes",
+        "lecture-transcription",
+        "local-first",
+        "machine-translation",
+        "markdown",
+        "note-taking",
+        "offline",
+        "opus-mt",
+        "speech-recognition",
+        "speech-to-text",
+        "subtitles",
+        "transcription",
+        "translation",
+        "whisper"
+      ],
+      "homepage": null,
+      "stars": 0,
+      "forks": 0,
+      "createdYear": "2026",
+      "license": "MIT",
+      "pushedAt": "2026-09-21",
+      "pinned": false,
+      "languages": [
+        "Python"
+      ],
+      "release": {
+        "tag": "v1.1.0",
+        "published": "2026-09-21"
+      },
+      "commit": {
+        "date": "2026-09-21",
+        "subject": "feat: check the language by decoding, decode in blocks, save every utterance"
+      },
+      "checks": {
+        "conclusion": "success",
+        "workflow": "Build",
+        "at": "2026-09-21"
+      },
+      "published": {
+        "name": "lecturize",
+        "version": "1.1.0",
+        "uploaded": "2026-09-21",
+        "requiresPython": ">=3.10",
+        "downloadsLastMonth": 190
+      }
+    },
+    {
+      "displayName": "Python Clean Architecture Template",
+      "fullName": "davidcohenDC/python-clean-architecture-template",
+      "name": "python-clean-architecture-template",
+      "url": "https://github.com/davidcohenDC/python-clean-architecture-template",
+      "description": "A pragmatic, test-enforced Clean Architecture template for Python APIs (FastAPI + SQLAlchemy). Executable dependency rule, one-command domain replacement, ADRs.",
+      "topics": [
+        "architecture",
+        "clean-architecture",
+        "ddd",
+        "fastapi",
+        "hexagonal-architecture",
+        "ports-and-adapters",
+        "python",
+        "sqlalchemy",
+        "starter-kit",
+        "template"
+      ],
+      "homepage": "https://davidcohendc.github.io/python-clean-architecture-template/",
+      "stars": 0,
+      "forks": 0,
+      "createdYear": "2026",
+      "license": "MIT",
+      "pushedAt": "2026-09-21",
+      "pinned": false,
+      "languages": [
+        "Python",
+        "Shell",
+        "Makefile",
+        "JavaScript"
+      ],
+      "release": {
+        "tag": "v0.5.1",
+        "published": "2026-09-21"
+      },
+      "commit": {
+        "date": "2026-09-21",
+        "subject": "chore(release): 0.5.1 [skip ci]"
+      },
+      "checks": {
+        "conclusion": "success",
+        "workflow": "npm_and_yarn in /. - Update #1586162203",
+        "at": "2026-09-21"
+      },
+      "published": null
+    },
+    {
+      "displayName": "S-Parking",
+      "fullName": "davidcohenDC/s-parking",
+      "name": "s-parking",
+      "url": "https://github.com/davidcohenDC/s-parking",
+      "description": "S-Parking: A modular Carla Simulator project for simulating parking scenarios with sensor fusion and state machine control.",
+      "topics": [],
+      "homepage": null,
+      "stars": 4,
+      "forks": 1,
+      "createdYear": "2025",
+      "license": "MIT",
+      "pushedAt": "2025-04-07",
+      "pinned": true,
+      "languages": [
+        "Python"
+      ],
+      "release": null,
+      "commit": {
+        "date": "2025-03-05",
+        "subject": "chore: update visualize_lidar.py and some configuration"
+      },
+      "checks": null,
+      "published": null
+    },
+    {
+      "displayName": "ARGoS swarm robotics",
+      "fullName": "davidcohenDC/argos-swarm-robotics",
+      "name": "argos-swarm-robotics",
+      "url": "https://github.com/davidcohenDC/argos-swarm-robotics",
+      "description": "Behaviour-based and swarm robotics in ARGoS/Lua: reactive control, subsumption, motor schemas and 50-robot aggregation. University of Bologna IRS course, 2024.",
+      "topics": [
+        "argos",
+        "footbot",
+        "lua",
+        "multi-agent-systems",
+        "potential-fields",
+        "robotics",
+        "subsumption-architecture",
+        "swarm-robotics"
+      ],
+      "homepage": null,
+      "stars": 0,
+      "forks": 0,
+      "createdYear": "2026",
+      "license": "MIT",
+      "pushedAt": "2026-09-19",
+      "pinned": true,
+      "languages": [
+        "Lua",
+        "Shell",
+        "Python",
+        "Dockerfile"
+      ],
+      "release": {
+        "tag": "v1.1.0",
+        "published": "2026-09-19"
+      },
+      "commit": {
+        "date": "2026-09-19",
+        "subject": "feat: publish the image to GitHub Packages and ship the ARGoS source with the release"
+      },
+      "checks": {
+        "conclusion": "success",
+        "workflow": "Build",
+        "at": "2026-09-19"
+      },
+      "published": null
+    },
+    {
+      "displayName": "Factory Manager",
+      "fullName": "Factory-Manager/factory-manager",
+      "name": "factory-manager",
+      "url": "https://github.com/Factory-Manager/factory-manager",
+      "description": "Distributed systems project for industrial machinery monitoring.",
+      "topics": [
+        "distributed-systems"
+      ],
+      "homepage": null,
+      "stars": 0,
+      "forks": 0,
+      "createdYear": "2026",
+      "license": "MIT",
+      "pushedAt": "2026-09-24",
+      "pinned": true,
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "Shell",
+        "Dockerfile"
+      ],
+      "release": null,
+      "commit": {
+        "date": "2026-09-09",
+        "subject": "chore(deps): Update dependency joi to v18.2.5 [SECURITY]"
+      },
+      "checks": {
+        "conclusion": "success",
+        "workflow": "Core REST Service CI",
+        "at": "2026-09-16"
+      },
+      "published": null
+    },
+    {
+      "displayName": "Distributed Cooperative Pixel Art",
+      "fullName": "davidcohenDC/distributed-cooperative-pixel-art",
+      "name": "distributed-cooperative-pixel-art",
+      "url": "https://github.com/davidcohenDC/distributed-cooperative-pixel-art",
+      "description": "Distributed Programming with Asynchronous Message Passing or Distributed Objects",
+      "topics": [],
+      "homepage": null,
+      "stars": 0,
+      "forks": 0,
+      "createdYear": "2025",
+      "license": null,
+      "pushedAt": "2025-10-21",
+      "pinned": true,
+      "languages": [
+        "Kotlin",
+        "Shell"
+      ],
+      "release": null,
+      "commit": {
+        "date": "2025-10-20",
+        "subject": "feat: add core functionality for collaborative pixel art editor with MOM"
+      },
+      "checks": null,
+      "published": null
+    },
+    {
+      "displayName": "Code Metrics Analyzer",
+      "fullName": "davidcohenDC/code-metrics-analyzer",
+      "name": "code-metrics-analyzer",
+      "url": "https://github.com/davidcohenDC/code-metrics-analyzer",
+      "description": null,
+      "topics": [],
+      "homepage": null,
+      "stars": 0,
+      "forks": 0,
+      "createdYear": "2025",
+      "license": null,
+      "pushedAt": "2025-10-20",
+      "pinned": false,
+      "languages": [
+        "Scala",
+        "Shell"
+      ],
+      "release": null,
+      "commit": {
+        "date": "2025-10-20",
+        "subject": "feat: project setup"
+      },
+      "checks": {
+        "conclusion": "success",
+        "workflow": "CI",
+        "at": "2025-10-20"
+      },
+      "published": null
+    },
+    {
+      "displayName": "Between Pixels and Data: An Analysis of Videogame Metrics",
+      "fullName": "davidcohenDC/BigDataProject",
+      "name": "BigDataProject",
+      "url": "https://github.com/davidcohenDC/BigDataProject",
+      "description": null,
+      "topics": [],
+      "homepage": null,
+      "stars": 0,
+      "forks": 0,
+      "createdYear": "2023",
+      "license": null,
+      "pushedAt": "2023-10-27",
+      "pinned": false,
+      "languages": [
+        "Jupyter Notebook"
+      ],
+      "release": null,
+      "commit": {
+        "date": "2023-10-27",
+        "subject": "correct the language"
+      },
+      "checks": null,
+      "published": null
+    },
+    {
+      "displayName": "PPS labs",
+      "fullName": "davidcohenDC/pps-labs",
+      "name": "pps-labs",
+      "url": "https://github.com/davidcohenDC/pps-labs",
+      "description": "Seven labs from the University of Bologna PPS course: TDD in Java, then Scala 3 from functions and ADTs to lazy lists, type classes and a solitaire solver. One sbt build, 145 tests.",
+      "topics": [
+        "functional-programming",
+        "java",
+        "junit",
+        "sbt",
+        "scala",
+        "scala3",
+        "tdd"
+      ],
+      "homepage": null,
+      "stars": 0,
+      "forks": 0,
+      "createdYear": "2026",
+      "license": "MIT",
+      "pushedAt": "2026-09-19",
+      "pinned": false,
+      "languages": [
+        "Scala",
+        "Java"
+      ],
+      "release": {
+        "tag": "v1.0.0",
+        "published": "2026-09-19"
+      },
+      "commit": {
+        "date": "2026-09-19",
+        "subject": "feat: one sbt build for the seven labs, CI and semantic releases"
+      },
+      "checks": {
+        "conclusion": "success",
+        "workflow": "github_actions in /. - Update #1582937673",
+        "at": "2026-09-19"
+      },
+      "published": null
+    },
+    {
+      "displayName": "Machine learning labs",
+      "fullName": "davidcohenDC/machine-learning-labs",
+      "name": "machine-learning-labs",
+      "url": "https://github.com/davidcohenDC/machine-learning-labs",
+      "description": "Five ML labs in Jupyter (SVM/k-NN, HOG, regression, MLP, CNN fine-tuning) from the University of Bologna course competition, second place overall. Python 2022 stack in Docker.",
+      "topics": [
+        "computer-vision",
+        "jupyter",
+        "keras",
+        "machine-learning",
+        "regression",
+        "scikit-learn",
+        "tensorflow",
+        "transfer-learning",
+        "unibo"
+      ],
+      "homepage": null,
+      "stars": 0,
+      "forks": 0,
+      "createdYear": "2026",
+      "license": "MIT",
+      "pushedAt": "2026-09-19",
+      "pinned": false,
+      "languages": [
+        "Jupyter Notebook",
+        "Python",
+        "Shell",
+        "Dockerfile"
+      ],
+      "release": {
+        "tag": "v1.0.0",
+        "published": "2026-09-19"
+      },
+      "commit": {
+        "date": "2026-09-19",
+        "subject": "feat: Docker image with the 2022 stack, notebook runner, CI and semantic releases"
+      },
+      "checks": {
+        "conclusion": "success",
+        "workflow": "Build",
+        "at": "2026-09-19"
+      },
+      "published": null
+    }
+  ],
+  "papers": [
+    {
+      "doi": "10.1016/j.neunet.2025.108249",
+      "title": "Abstractive summarization through the prism of decoding strategies",
+      "kind": "Peer-reviewed publication",
+      "journal": "Neural Networks",
+      "volume": "196",
+      "article": "108249",
+      "year": "2026",
+      "authors": [
+        "Giacomo Frisoni",
+        "Luca Ragazzi",
+        "David Cohen",
+        "Gianluca Moro",
+        "Antonella Carbonaro",
+        "Claudio Sartori"
+      ],
+      "abstract": "In natural language generation, abstractive summarization (AS) is advancing rapidly due to transformer-based language models (LMs). Although decoding strategies significantly influence generated summaries, their significance is often overlooked.",
+      "openAccess": true,
+      "license": "cc-by",
+      "citations": 2,
+      "sources": [
+        "Crossref",
+        "OpenAlex"
+      ]
+    }
+  ]
+}

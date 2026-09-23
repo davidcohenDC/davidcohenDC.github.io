@@ -1,0 +1,85 @@
+/* The two faces, and the seam between them.
+ *
+ * Archivo at 88% width reads the page's prose: compact, sturdy, made for
+ * running text. The monospace stack keeps what is machine-read — dates,
+ * versions, tags, "checks passing" — so the two registers are told apart by
+ * the typeface instead of by another colour.
+ *
+ * It is served from this origin, never from a font CDN: the page promises no
+ * third-party request and REQ-PRIV-1 fails if one appears. Made by
+ * scripts/font.py, which pins the width axis and leaves 36 KB of the 90 the
+ * variable font arrives as. Licensed under the SIL OFL 1.1, which travels
+ * with it in public/fonts/archivo-LICENSE.txt.
+ */
+
+@font-face {
+  font-family: 'Archivo';
+  src: url('/fonts/archivo-88.woff2') format('woff2');
+  /* One file covers every weight the page uses, 400 to 700. */
+  font-weight: 100 900;
+  font-style: normal;
+  /* `optional`, and deliberately not preloaded.
+   *
+   * Preloading it cost about 630 ms of Largest Contentful Paint on a runner
+   * with the CPU slowed fourfold — the file is fetched at high priority, in
+   * front of the picture the metric is actually measuring — and left 14 ms of
+   * margin against a 2,500 ms budget, which is no margin at all.
+   *
+   * So the face is an enhancement rather than a condition: whoever has it
+   * cached, or arrives on a connection quick enough to fetch it inside the
+   * block period, reads the page in Archivo; whoever does not reads the same
+   * page in the fallback below, at the same width, with the same line breaks,
+   * and sees Archivo on the next visit. `optional` is what makes that safe —
+   * it never swaps the text out from under a reader, so CLS stays 0 whatever
+   * the network does.
+   *
+   * `swap` was measured too: it puts Archivo on the first visit, and costs
+   * 0.025 of layout shift, because a fallback can match an average width but
+   * not every string's. */
+  font-display: optional;
+}
+
+/* The fallback, measured rather than guessed.
+ *
+ * Text set in a fallback of a different width reflows the moment the real
+ * font lands, and the page's CLS stops being zero. These numbers come from
+ * scripts/font.py: the average advance width of Archivo at 88% against each
+ * fallback's, over the letters and the space in the proportion running text
+ * uses them, with the ascent and descent scaled to match. */
+@font-face {
+  font-family: 'Archivo fallback';
+  src: local('Segoe UI'), local('Helvetica Neue'), local('Roboto');
+  size-adjust: 91.9%;
+  ascent-override: 95.6%;
+  descent-override: 22.9%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Archivo fallback';
+  src: local('Arial'), local('Helvetica');
+  size-adjust: 87.3%;
+  ascent-override: 100.6%;
+  descent-override: 24.1%;
+  line-gap-override: 0%;
+}
+
+/* The display cut: Archivo again, at 62% width and weight 800, made by
+ * scripts/font.py from the same source. It sets a few words and never a
+ * sentence — the name, the section numbers, the figure a project is
+ * remembered by — so it carries the ASCII set and nothing else, and weighs
+ * 8 KB.
+ *
+ * It is the one face the page preloads. The name is set in it at the size
+ * that makes it the largest thing on the first screen, which also makes it
+ * what Largest Contentful Paint measures: fetching it early is fetching the
+ * metric, not competing with it. `optional` still holds, so a visitor whose
+ * connection misses the block period reads the name in the fallback, and
+ * nothing moves when the file lands. */
+@font-face {
+  font-family: 'Archivo Display';
+  src: url('/fonts/archivo-display.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: optional;
+}

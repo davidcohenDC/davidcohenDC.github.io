@@ -1,0 +1,4 @@
+#!/bin/sh
+# Conventional commits, checked before the commit exists rather than in CI,
+# where a wrong subject costs a force-push.
+npx --no-install commitlint --edit "$1"

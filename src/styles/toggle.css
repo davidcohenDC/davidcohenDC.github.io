@@ -1,0 +1,151 @@
+/* The theme control: a horizon in a disc.
+ *
+ * A horizon crosses the lower part of the disc, and under it a wheel turns
+ * with the sun on one side and the moon on the other. The theme sets the
+ * wheel's angle, so a press is a sunset or a sunrise: the body in the sky
+ * goes down behind the ground on one side while the other comes up on the
+ * other, on a spring that carries it a little past the top and back.
+ *
+ * The disc has no sky of its own. It is the header's ground, flat — a tinted
+ * gradient behind the bodies made it a sticker on the bar rather than part
+ * of it — and the bodies and the horizon are the only things drawn.
+ *
+ * All of it hangs off `data-theme` on <html>, which is set before the first
+ * paint, so the prerendered page, the hydrated one and the static documents
+ * show the same thing without a script deciding anything. The button is named
+ * by its aria-label; everything in it is decoration.
+ */
+@layer components {
+  .dial {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 999px;
+    /* The horizon's height, and the centre the wheel turns on. */
+    --horizon: 70%;
+  }
+
+  .dial-wheel {
+    position: absolute;
+    inset: 0;
+    transform-origin: 50% var(--horizon);
+    rotate: 0deg;
+    /* A spring: past the top and back. */
+    transition: rotate 0.75s cubic-bezier(0.34, 1.45, 0.5, 1);
+  }
+
+  [data-theme='dark'] .dial-wheel {
+    rotate: 180deg;
+  }
+
+  /* Each body sits the same distance from the centre of the turn: the sun
+     above it, the moon below, upside down so that it arrives upright. */
+  .dial-body {
+    position: absolute;
+    left: 50%;
+    top: var(--horizon);
+    display: grid;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    place-items: center;
+    color: var(--toggle-icon);
+  }
+
+  .dial-sun {
+    translate: 0 -13px;
+  }
+
+  .dial-moon {
+    translate: 0 13px;
+    rotate: 180deg;
+  }
+
+  /* The ground, in front of the wheel: what a body goes down behind. */
+  .dial-ground {
+    position: absolute;
+    inset: var(--horizon) 0 0;
+    border-top: 1px solid var(--color-line);
+    background: var(--color-bg);
+  }
+
+  @media (hover: hover) {
+    /* A tease: the wheel leans and the body in the sky starts down towards
+       the horizon, before anyone has committed to anything. */
+    .theme-toggle:hover .dial-wheel {
+      rotate: 32deg;
+    }
+
+    [data-theme='dark'] .theme-toggle:hover .dial-wheel {
+      rotate: 212deg;
+    }
+  }
+
+  /* The body takes the hit. It is keyed by its condition, so React replaces
+     it on every press and this runs again. */
+  .dial-body svg {
+    animation: toggle-hit 0.34s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  }
+
+  @keyframes toggle-hit {
+    25% {
+      transform: translate(-1.5px, 1px) rotate(-7deg);
+    }
+    55% {
+      transform: translate(1.5px, -1px) rotate(5deg);
+    }
+    80% {
+      transform: translate(-0.5px, 0) rotate(-2deg);
+    }
+  }
+
+  /* The disc is the page's ground, not the surface a card sits on. */
+  .theme-toggle {
+    --control-accent: var(--toggle-icon);
+    background: var(--color-bg);
+  }
+
+  /* The ring that asks to be pressed: a gold line a few pixels outside the
+     disc, with the header showing between the two. It is an outline, which
+     follows the disc's curve and is antialiased like any line — the ring it
+     replaces was a gradient cut out with a mask, and its edge was grainy.
+
+     It is always there and it breathes in the reader's own time: `--ask`,
+     written on the button by layout/asking.ts (on the portfolio and the
+     documents) from where the page is, thickens and brightens it going down
+     the page and settles it coming back up. Under the pointer it opens out,
+     the way a key rises to meet a finger. */
+  .theme-toggle {
+    outline: calc(1.5px + var(--ask, 0) * 1.5px) solid
+      color-mix(
+        in srgb,
+        var(--toggle-icon) calc(60% + var(--ask, 0) * 40%),
+        var(--color-line)
+      );
+    outline-offset: 4px;
+    transition:
+      outline-offset 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      outline-color 0.3s ease,
+      border-color 0.2s ease,
+      transform 0.15s ease;
+  }
+
+  @media (hover: hover) {
+    .theme-toggle:hover {
+      outline-color: var(--toggle-icon);
+      outline-offset: 6px;
+    }
+  }
+
+  /* Pressed, the ring closes in on the disc. */
+  .theme-toggle:active {
+    outline-offset: 2px;
+  }
+
+  /* Focused from the keyboard, the ring is the focus ring: the accent, as on
+     every other control. */
+  .theme-toggle:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 6px;
+  }
+}

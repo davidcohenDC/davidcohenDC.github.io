@@ -1,0 +1,70 @@
+/* The native disclosure, dressed. It stays a component rather than a set of
+   utilities because what it does lives in its states: the marker that has to be
+   taken away and the height that animates open where the browser can
+   interpolate to `auto`. */
+@layer components {
+  .disclosure {
+    margin-bottom: --spacing(2);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .disclosure summary {
+    display: flex;
+    min-height: 52px;
+    align-items: center;
+    justify-content: space-between;
+    gap: --spacing(4);
+    padding: --spacing(4) 0;
+    font-size: var(--text-sm);
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .disclosure summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* The mark that says it opens, at the end of the line, turning into a
+     cross when it has. The last thing in the line takes the free space, so
+     the mark sits against the edge. */
+  .disclosure summary {
+    justify-content: flex-start;
+  }
+
+  .disclosure summary > :last-child {
+    margin-left: auto;
+  }
+
+  .disclosure summary::after {
+    content: '+';
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    line-height: 1;
+    color: var(--color-accent);
+    transition: rotate 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .disclosure[open] summary::after {
+    rotate: 45deg;
+  }
+
+  .disclosure summary:focus-visible {
+    border-radius: 6px;
+  }
+
+  @supports (interpolate-size: allow-keywords) {
+    .disclosure {
+      interpolate-size: allow-keywords;
+    }
+    .disclosure::details-content {
+      height: 0;
+      overflow: clip;
+      transition:
+        height 0.3s ease,
+        content-visibility 0.3s allow-discrete;
+    }
+    .disclosure[open]::details-content {
+      height: auto;
+    }
+  }
+}

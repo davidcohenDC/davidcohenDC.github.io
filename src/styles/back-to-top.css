@@ -1,0 +1,76 @@
+/* A hover that only exists on devices that hover, which a utility cannot say. */
+@layer components {
+  @media (hover: hover) {
+    .back-to-top:hover {
+      background: var(--color-wash);
+    }
+  }
+
+  /* The documents' pair of floating controls.
+   *
+   * They are always in the page and always in the accessibility tree's reach;
+   * what changes is whether they are there to be seen. `hidden` did that with
+   * no movement at all, which on a control that comes and goes reads as a
+   * glitch rather than an arrival.
+   */
+  .doc-actions {
+    position: fixed;
+    right: --spacing(4);
+    bottom: --spacing(4);
+    z-index: 25;
+    display: grid;
+    gap: --spacing(2);
+    transition:
+      opacity 0.28s ease,
+      transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0.28s;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(--spacing(3)) scale(0.94);
+  }
+
+  .doc-actions.is-visible {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+  }
+
+  /* The second one arrives a beat after the first, which is what makes two
+     controls read as a pair rather than as a block. */
+  .doc-actions.is-visible > :last-child {
+    transition-delay: 0.05s;
+  }
+
+  @media (width > 760px) {
+    .doc-actions {
+      right: --spacing(6);
+      bottom: --spacing(6);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .doc-actions {
+      transition-duration: 0s;
+      transform: none;
+    }
+  }
+
+  /* The ring: how much of the page is behind the reader, drawn round the
+     way back to the top. `--progress` is written on the link by the page
+     script (scripts/page-scripts.ts), from 0 to 1, and the stroke is that
+     long. */
+  .progress-ring {
+    position: absolute;
+    inset: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    rotate: -90deg;
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    stroke-dasharray: 1;
+    stroke-dashoffset: calc(1 - var(--progress, 0));
+    stroke-linecap: round;
+    pointer-events: none;
+  }
+}

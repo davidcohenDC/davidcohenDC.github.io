@@ -1,0 +1,6 @@
+#!/bin/sh
+# The two checks that cost a second. The rest — types, tests, budgets — is
+# `npm run check`, which a hook has no business making you wait for.
+set -e
+npm run --silent format:check
+npm run --silent lint
