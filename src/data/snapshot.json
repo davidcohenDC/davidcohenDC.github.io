@@ -35,13 +35,13 @@
         "published": "2026-01-16"
       },
       "commit": {
-        "date": "2026-10-02",
-        "subject": "ci(deps): update sbt/setup-sbt action to v1.5.11 (#313)"
+        "date": "2026-10-03",
+        "subject": "ci(deps): update astral-sh/setup-uv action to v10.2.0 (#314)"
       },
       "checks": {
         "conclusion": "success",
         "workflow": "CI/CD",
-        "at": "2026-10-02"
+        "at": "2026-10-03"
       },
       "published": null
     },
