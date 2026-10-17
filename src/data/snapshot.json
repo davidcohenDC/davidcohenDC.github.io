@@ -22,7 +22,7 @@
       "forks": 2,
       "createdYear": "2025",
       "license": "MIT",
-      "pushedAt": "2026-10-15",
+      "pushedAt": "2026-10-17",
       "pinned": true,
       "languages": [
         "Jupyter Notebook",
@@ -35,13 +35,13 @@
         "published": "2026-01-16"
       },
       "commit": {
-        "date": "2026-10-15",
-        "subject": "ci(deps): update sbt/setup-sbt action to v1.5.12 (#318)"
+        "date": "2026-10-17",
+        "subject": "chore(deps): update node.js to 24.22 (#319)"
       },
       "checks": {
         "conclusion": "success",
         "workflow": "CI/CD",
-        "at": "2026-10-15"
+        "at": "2026-10-17"
       },
       "published": null
     },
@@ -127,7 +127,7 @@
       "forks": 0,
       "createdYear": "2026",
       "license": "MIT",
-      "pushedAt": "2026-10-10",
+      "pushedAt": "2026-10-17",
       "pinned": false,
       "languages": [
         "Python",
@@ -145,8 +145,8 @@
       },
       "checks": {
         "conclusion": "success",
-        "workflow": "uv in / for fastapi, ruff - Update #1620265038",
-        "at": "2026-10-10"
+        "workflow": "docker in /. - Update #1632531694",
+        "at": "2026-10-17"
       },
       "published": null
     },
