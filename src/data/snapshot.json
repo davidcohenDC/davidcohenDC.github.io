@@ -127,7 +127,7 @@
       "forks": 0,
       "createdYear": "2026",
       "license": "MIT",
-      "pushedAt": "2026-10-17",
+      "pushedAt": "2026-10-24",
       "pinned": false,
       "languages": [
         "Python",
@@ -145,8 +145,8 @@
       },
       "checks": {
         "conclusion": "success",
-        "workflow": "docker in /. - Update #1632531694",
-        "at": "2026-10-17"
+        "workflow": "uv in / for fastapi, pydantic, asyncpg, ruff, mypy - Update #1649392060",
+        "at": "2026-10-24"
       },
       "published": null
     },
