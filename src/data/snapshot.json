@@ -233,7 +233,7 @@
       "forks": 0,
       "createdYear": "2026",
       "license": "MIT",
-      "pushedAt": "2026-10-26",
+      "pushedAt": "2026-10-28",
       "pinned": true,
       "languages": [
         "JavaScript",
@@ -441,7 +441,7 @@
       "abstract": "In natural language generation, abstractive summarization (AS) is advancing rapidly due to transformer-based language models (LMs). Although decoding strategies significantly influence generated summaries, their significance is often overlooked.",
       "openAccess": true,
       "license": "cc-by",
-      "citations": 2,
+      "citations": 3,
       "sources": [
         "Crossref",
         "OpenAlex"
