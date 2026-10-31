@@ -127,7 +127,7 @@
       "forks": 0,
       "createdYear": "2026",
       "license": "MIT",
-      "pushedAt": "2026-10-24",
+      "pushedAt": "2026-10-31",
       "pinned": false,
       "languages": [
         "Python",
@@ -145,8 +145,8 @@
       },
       "checks": {
         "conclusion": "success",
-        "workflow": "uv in / for fastapi, pydantic, asyncpg, ruff, mypy - Update #1649392060",
-        "at": "2026-10-24"
+        "workflow": "npm_and_yarn in /docs for react, react-dom, typescript - Update #1667102889",
+        "at": "2026-10-31"
       },
       "published": null
     },
